@@ -1,0 +1,24 @@
+{
+  "name": "cordova-plugin-arduino",
+  "version": "0.0.1",
+  "description": "Get sensor data from Arduino",
+  "cordova": {
+    "id": "cordova-plugin-arduino",
+    "platforms": []
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vienom/cordova-plugin-arduino.git"
+  },
+  "keywords": [
+    "cordova",
+    "arduino",
+    "ecosystem:cordova"
+  ],
+  "author": "Thomas Plank",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/vienom/cordova-plugin-arduino/issues"
+  },
+  "homepage": "https://github.com/vienom/cordova-plugin-arduino#readme"
+}
