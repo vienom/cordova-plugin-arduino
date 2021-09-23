@@ -50,7 +50,7 @@ function Arduino () {
     channel.onCordovaReady.subscribe(function () {
 
         alert("ready from plugin");
-        
+
         /*me.getInfo(function (info) {
             // ignoring info.cordova returning from native, we should use value from cordova.version defined in cordova.js
             var buildLabel = cordova.version;
