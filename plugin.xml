@@ -7,5 +7,8 @@
     <keywords>cordova,arduino</keywords>
     <js-module src="www/arduino.js" name="arduino">
         <clobbers target="arduino" />
-    </js-module>    
+    </js-module>
+    <platform name="android">
+      <lib-file src="usbserial.jar" />
+    </platform>
 </plugin>
