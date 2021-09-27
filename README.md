@@ -45,5 +45,5 @@ void loop()
 ```
 
 ## Useful Links
-[Arduino](https://www.arduino.cc/)
-[IR Sensor](https://wiki.seeedstudio.com/Grove-80cm_Infrared_Proximity_Sensor/)
+*[Arduino](https://www.arduino.cc/)
+*[IR Sensor](https://wiki.seeedstudio.com/Grove-80cm_Infrared_Proximity_Sensor/)
