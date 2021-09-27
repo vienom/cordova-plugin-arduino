@@ -5,10 +5,23 @@
     <description>Get sensor data from Arduino</description>
     <license>Apache 2.0</license>
     <keywords>cordova,arduino</keywords>
+
     <js-module src="www/arduino.js" name="arduino">
         <clobbers target="arduino" />
     </js-module>
+
     <platform name="android">
+
+      <config-file target="config.xml" parent="/*">
+          <feature name="Arduino">
+              <param name="android-package" value="com.vienom.cordova.plugin.arduino.Arduino"/>
+              <param name="onload" value="true" />
+          </feature>
+      </config-file>
+
+      <source-file src="src/android/Arduino.java" target-dir="src/com/vienom/cordova/plugin/arduino" />
+
       <lib-file src="usbserial.jar" />
+
     </platform>
 </plugin>

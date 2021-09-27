@@ -30,20 +30,9 @@ channel.createSticky('onCordovaInfoReady');
 channel.waitForInitialization('onCordovaInfoReady');
 
 /**
- * This represents the mobile device, and provides properties for inspecting the model, version, UUID of the
- * phone, etc.
  * @constructor
  */
 function Arduino () {
-    /*this.available = false;
-    this.platform = null;
-    this.version = null;
-    this.uuid = null;
-    this.cordova = null;
-    this.model = null;
-    this.manufacturer = null;
-    this.isVirtual = null;
-    this.serial = null;*/
 
     var me = this;
 
@@ -51,35 +40,28 @@ function Arduino () {
 
         alert("ready from plugin");
 
-        /*me.getInfo(function (info) {
+        me.initSerialConnection(function (data) {
             // ignoring info.cordova returning from native, we should use value from cordova.version defined in cordova.js
-            var buildLabel = cordova.version;
-            me.available = true;
-            me.platform = info.platform;
-            me.version = info.version;
-            me.uuid = info.uuid;
-            me.cordova = buildLabel;
-            me.model = info.model;
-            me.isVirtual = info.isVirtual;
-            me.manufacturer = info.manufacturer || 'unknown';
-            me.serial = info.serial || 'unknown';
+
+            alert("initSerialConnection success");
+
             channel.onCordovaInfoReady.fire();
+
         }, function (e) {
-            me.available = false;
-            utils.alert('[ERROR] Error initializing Cordova: ' + e);
-        });*/
+            utils.alert('[ERROR] Error initializing connection: ' + e);
+        });
     });
 }
 
 /**
- * Get device info
+ * Get sensor data
  *
  * @param {Function} successCallback The function to call when the heading data is available
  * @param {Function} errorCallback The function to call when there is an error getting the heading data. (OPTIONAL)
  */
-Arduino.prototype.getInfo = function (successCallback, errorCallback) {
-    /*argscheck.checkArgs('fF', 'Device.getInfo', arguments);
-    exec(successCallback, errorCallback, 'Device', 'getDeviceInfo', []);*/
+Arduino.prototype.initSerialConnection = function (successCallback, errorCallback) {
+    argscheck.checkArgs('fF', 'Arduino.initSerialConnection', arguments);
+    exec(successCallback, errorCallback, 'Arduino', 'initSerialConnection', []);
 };
 
 module.exports = new Arduino();
