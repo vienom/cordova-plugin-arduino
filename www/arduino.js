@@ -19,15 +19,8 @@
  *
 */
 
-var argscheck = require('cordova/argscheck');
-var channel = require('cordova/channel');
 var utils = require('cordova/utils');
-var exec = require('cordova/exec');
 var cordova = require('cordova');
-
-channel.createSticky('onCordovaInfoReady');
-// Tell cordova channel to wait on the CordovaInfoReady event
-channel.waitForInitialization('onCordovaInfoReady');
 
 /**
  * @constructor
@@ -36,32 +29,14 @@ function Arduino () {
 
     var me = this;
 
-    channel.onCordovaReady.subscribe(function () {
+    window.initSerialConnection = function(callback) {
 
-        alert("ready from plugin");
+        cordova.exec(callback, function(err) {
+            utils.alert('init usb error: ' + err);
+        }, 'Arduino', 'initSerialConnection', [  ]);
 
-        me.initSerialConnection(function (data) {
-            // ignoring info.cordova returning from native, we should use value from cordova.version defined in cordova.js
+    };
 
-            alert("initSerialConnection success");
-
-            channel.onCordovaInfoReady.fire();
-
-        }, function (e) {
-            utils.alert('[ERROR] Error initializing connection: ' + e);
-        });
-    });
 }
-
-/**
- * Get sensor data
- *
- * @param {Function} successCallback The function to call when the heading data is available
- * @param {Function} errorCallback The function to call when there is an error getting the heading data. (OPTIONAL)
- */
-Arduino.prototype.initSerialConnection = function (successCallback, errorCallback) {
-    argscheck.checkArgs('fF', 'Arduino.initSerialConnection', arguments);
-    exec(successCallback, errorCallback, 'Arduino', 'initSerialConnection', []);
-};
 
 module.exports = new Arduino();

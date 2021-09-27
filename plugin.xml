@@ -19,7 +19,17 @@
           </feature>
       </config-file>
 
+      <config-file target="AndroidManifest.xml" parent="application/activity">
+          <intent-filter>
+              <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+          </intent-filter>
+          <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
+      </config-file>
+
       <source-file src="src/android/Arduino.java" target-dir="src/com/vienom/cordova/plugin/arduino" />
+      <source-file src="src/android/device_filter.xml" target-dir="res/xml" />
 
       <lib-file src="usbserial.jar" />
 
