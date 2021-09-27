@@ -4,7 +4,7 @@ Plugin to get sensor data from Arduino
 ## Platforms
 only for Android
 
-## Usage
+## Installation
 ```
 cordova plugin add https://github.com/vienom/cordova-plugin-arduino
 ```
