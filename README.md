@@ -15,11 +15,11 @@ window.initSerialConnection(function(distance){
 ```
 
 ## Arduino
-The arduino is connected to an IR distance sensor over the analog pin A1
+The arduino is connected to an IR distance sensor over the analog pin A1. In my case an Arduino Uno3 and a Grove - 80cm Infrared Proximity Sensor was used.
 ```
 #define IR_PROXIMITY_SENSOR A1 // Analog input pin that  is attached to the sensor
 
- void setup()
+void setup()
 {
     // initialise serial communications at 9600 bps:
     Serial.begin(9600);
