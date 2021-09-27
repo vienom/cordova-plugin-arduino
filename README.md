@@ -1,5 +1,7 @@
 # cordova-plugin-arduino
 Plugin to get sensor data from Arduino
+
+## Platforms
 only for Android
 
 ## Usage
