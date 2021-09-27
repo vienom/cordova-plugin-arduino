@@ -13,3 +13,32 @@ window.initSerialConnection(function(distance){
   console.log(distance);
 });
 ```
+
+## Arduino
+The arduino is connected to an IR distance sensor over the analog pin A1
+```
+#define IR_PROXIMITY_SENSOR A1 // Analog input pin that  is attached to the sensor
+
+ void setup()
+{
+    // initialise serial communications at 9600 bps:
+    Serial.begin(9600);
+}
+
+void loop()
+{
+    int sensor_value;
+    int sum=0;  
+    for (int i = 0;i < 20;i ++)//Continuous sampling 20 times
+    {
+        sensor_value = analogRead(IR_PROXIMITY_SENSOR);
+        sum += sensor_value;
+    }
+
+    Serial.print(sum/20);
+    Serial.write("#");
+
+    // wait 100 milliseconds before the next loop
+    delay(100);
+}
+```
