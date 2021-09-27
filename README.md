@@ -17,8 +17,7 @@ window.initSerialConnection(function(distance){
 ```
 
 ## Arduino
-The arduino is connected to an IR distance sensor over the analog pin A1. In my case an Arduino Uno3 and a Grove 80cm Infrared Proximity Sensor was used.
-Here is the Arduino Sketch:
+The Arduino is connected to an IR distance sensor over the analog pin A1. In my case an Arduino Uno3 and a Grove 80cm Infrared Proximity Sensor was used. The whole thing is connected via an USB cable (OTG) to the Android device. Here is the Arduino Sketch:
 ```
 #define IR_PROXIMITY_SENSOR A1 // Analog input pin that  is attached to the sensor
 
