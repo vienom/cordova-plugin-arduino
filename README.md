@@ -9,6 +9,11 @@ only for Android
 cordova plugin add https://github.com/vienom/cordova-plugin-arduino
 ```
 
+## Preference
+This preference is added via the custom config Plugin in the config.xml of the application.
+```<custom-preference name="android-manifest/application/activity/@android:directBootAware" value="true" />
+```
+
 ## Usage
 ```javascript
 window.initSerialConnection(function(distance){
