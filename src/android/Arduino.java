@@ -94,8 +94,9 @@ public class Arduino extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("initSerialConnection")) {
+            Log.d("arduino", "initSerialConnection");
             measureContext = callbackContext;
-            this.initSerialConnection();
+            requestPermission();
             return true;
         }
         return false;
@@ -115,7 +116,9 @@ public class Arduino extends CordovaPlugin {
      * intit serial connection
      *
      */
-     private void initSerialConnection() {
+     private void requestPermission() {
+
+     Log.d("arduino", "initSerialConnection");
 
       if(usbManager == null) usbManager = (UsbManager) this.cordova.getActivity().getSystemService(c.USB_SERVICE);
 
@@ -124,11 +127,16 @@ public class Arduino extends CordovaPlugin {
           boolean keep = true;
           for (Map.Entry<String, UsbDevice> entry : usbDevices.entrySet()) {
               device = entry.getValue();
+
+              Log.d("arduino", device.toString());
+
               int deviceVID = device.getVendorId();
               if (deviceVID == 0x2341)//Arduino Vendor ID
               {
+                  Log.d("arduino", "permission");
                   PendingIntent pi = PendingIntent.getBroadcast(c, 0, new Intent(ACTION_USB_PERMISSION), 0);
                   usbManager.requestPermission(device, pi);
+
                   keep = false;
               } else {
                   connection = null;
@@ -151,6 +159,26 @@ public class Arduino extends CordovaPlugin {
           }
       }else if(measureContext != null) measureContext.error("no usb devices found");
 
+    }
+
+    private void initConnection() {
+      connection = usbManager.openDevice(device);
+      serialPort = UsbSerialDevice.createUsbSerialDevice(device, connection);
+      if (serialPort != null) {
+          if (serialPort.open()) { //Set Serial Connection Parameters.
+              serialPort.setBaudRate(9600);
+              serialPort.setDataBits(UsbSerialInterface.DATA_BITS_8);
+              serialPort.setStopBits(UsbSerialInterface.STOP_BITS_1);
+              serialPort.setParity(UsbSerialInterface.PARITY_NONE);
+              serialPort.setFlowControl(UsbSerialInterface.FLOW_CONTROL_OFF);
+              serialPort.read(mCallback);
+
+          } else {
+              Log.d("SERIAL", "PORT NOT OPEN");
+          }
+      } else {
+          Log.d("SERIAL", "PORT IS NULL");
+      }
     }
 
     private boolean isInteger( String input ) {
@@ -195,28 +223,17 @@ public class Arduino extends CordovaPlugin {
             if (intent.getAction().equals(ACTION_USB_PERMISSION)) {
                 boolean granted = intent.getExtras().getBoolean(UsbManager.EXTRA_PERMISSION_GRANTED);
                 if (granted) {
-                    connection = usbManager.openDevice(device);
-                    serialPort = UsbSerialDevice.createUsbSerialDevice(device, connection);
-                    if (serialPort != null) {
-                        if (serialPort.open()) { //Set Serial Connection Parameters.
-                            serialPort.setBaudRate(9600);
-                            serialPort.setDataBits(UsbSerialInterface.DATA_BITS_8);
-                            serialPort.setStopBits(UsbSerialInterface.STOP_BITS_1);
-                            serialPort.setParity(UsbSerialInterface.PARITY_NONE);
-                            serialPort.setFlowControl(UsbSerialInterface.FLOW_CONTROL_OFF);
-                            serialPort.read(mCallback);
-
-                        } else {
-                            Log.d("SERIAL", "PORT NOT OPEN");
-                        }
-                    } else {
-                        Log.d("SERIAL", "PORT IS NULL");
-                    }
+                    initConnection();
                 } else {
                     Log.d("SERIAL", "PERM NOT GRANTED");
                 }
             } else if (intent.getAction().equals(UsbManager.ACTION_USB_DEVICE_ATTACHED)) {
-                initSerialConnection();
+              boolean granted = intent.getExtras().getBoolean(UsbManager.EXTRA_PERMISSION_GRANTED);
+              if (granted) {
+                  initConnection();
+              } else {
+                  Log.d("SERIAL", "PERM NOT GRANTED");
+              }
             } else if (intent.getAction().equals(UsbManager.ACTION_USB_DEVICE_DETACHED)) {
                 serialPort.close();
             }
