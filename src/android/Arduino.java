@@ -105,8 +105,14 @@ public class Arduino extends CordovaPlugin {
     @Override
     public void onPause(boolean multitasking) {
       super.onPause(multitasking);
-      if(serialPort != null) serialPort.close();
+      //if(serialPort != null) serialPort.close();
     }
+
+    /*@Override
+    public void onResume(boolean multitasking) {
+      super.onResume(multitasking);
+      requestPermission();
+    }*/
 
     //--------------------------------------------------------------------------
     // LOCAL METHODS
@@ -118,7 +124,7 @@ public class Arduino extends CordovaPlugin {
      */
      private void requestPermission() {
 
-     Log.d("arduino", "initSerialConnection");
+     Log.d("arduino", "requestPermission");
 
       if(usbManager == null) usbManager = (UsbManager) this.cordova.getActivity().getSystemService(c.USB_SERVICE);
 
