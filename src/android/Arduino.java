@@ -94,10 +94,14 @@ public class Arduino extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("initSerialConnection")) {
-            Log.d("arduino", "initSerialConnection");
-            measureContext = callbackContext;
-            requestPermission();
-            return true;
+          Log.d("arduino", "initSerialConnection");
+          measureContext = callbackContext;
+          requestPermission();
+          return true;
+        }else if(action.equals("closeSerialConnection")){
+          Log.d("arduino", "closeSerialConnection");
+          if(serialPort != null) serialPort.close();
+          return true;
         }
         return false;
     }

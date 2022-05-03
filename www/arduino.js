@@ -32,8 +32,16 @@ function Arduino () {
     window.initSerialConnection = function(callback) {
 
         cordova.exec(callback, function(err) {
-            utils.alert('init usb error: ' + err);
+            utils.alert('init arduino error: ' + err);
         }, 'Arduino', 'initSerialConnection', [  ]);
+
+    };
+
+    window.closeSerialConnection = function(callback) {
+
+        cordova.exec(callback, function(err) {
+            utils.alert('close arduino error: ' + err);
+        }, 'Arduino', 'closeSerialConnection', [  ]);
 
     };
 
